@@ -9,32 +9,43 @@ public class GenericRepository<T> where T : Document
     // private string _taskFilePath;
     // private string _devFilePath;
 
+       
     public GenericRepository(List<T> list)
     {
         _list = list; 
     }
 
      // SaveDb
-    
-    public void Add(T[] data ) //
+     public void SaveDb(string filepath)
+     {
+        // var saveDbText = json
+     }
+
+     public string Add(T data ) //
     {
-       // C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\DeveloperDb.txt
+        _list.Add(data);
+        return "Data başarılı bir şekilde eklenmiştir.";
     }
 
-    public List<T>? GetById(Guid id)
+    public List<T?> GetById(Guid id)
     {
-
-        _list.FirstOrDefault(x => x.Id == id);
-        return null; 
+        var searchId= _list.FirstOrDefault(x => x.Id == id);
+        return new List<T?> { searchId }; // Emin olamadım bu kısımdan.
     }
 
-    public void Update(T[] data)
+    public void Update(T data)
     {
         
     }
 
-    public string? Delete(T id)     // Silinen kullanıcıyı dönmesini düşündüm. 
+    public string? Delete(Guid id)     // Silinen kullanıcıyı dönmesini düşündüm. 
     {
+        var searchId = _list.FirstOrDefault(x => x.Id == id);
+        if (true)
+        {
+            
+        }
+        
         return null;
     }
 
