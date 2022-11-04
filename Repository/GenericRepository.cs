@@ -1,29 +1,34 @@
+using Case2GK20221102.Controllers;
+using Case2GK20221102.Entities;
+
 namespace Case2GK20221102.Repository;
 
-public class GenericRepository<T>
+public class GenericRepository<T> where T : Document
 {
-    private List<T> _list;
-    private string _taskFilePath;
-    private string _devFilePath;
+    private List<T> _list;      //add bu listeye ekliyor. Save de hardiskke  kaydediyor.
+    // private string _taskFilePath;
+    // private string _devFilePath;
 
-    public GenericRepository(string taskFilePath, string devFilePath, List<T> list)
+    public GenericRepository(List<T> list)
     {
-        _taskFilePath = taskFilePath;
-        _devFilePath = devFilePath;
-        _list = list;
+        _list = list; 
     }
 
-    public void AddDb(T[] data )
+     // SaveDb
+    
+    public void Add(T[] data ) //
     {
-        
+       // C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\DeveloperDb.txt
     }
 
-    public List<T>? GetById(T id)
+    public List<T>? GetById(Guid id)
     {
+
+        _list.FirstOrDefault(x => x.Id == id);
         return null; 
     }
 
-    public void UpdateDb(T[] data)
+    public void Update(T[] data)
     {
         
     }

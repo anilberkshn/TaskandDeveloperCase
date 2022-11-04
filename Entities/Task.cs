@@ -1,8 +1,8 @@
 namespace Case2GK20221102.Entities;
 
-public class Task
+public class Task : Document
 {
-    public int Id { get; set; } 
+    
     public string Title { get; set; }
     public string Description { get; set; }
     public int Department { get; set; }
