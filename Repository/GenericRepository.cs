@@ -5,14 +5,14 @@ namespace Case2GK20221102.Repository;
 
 public class GenericRepository<T> where T : Document
 {
-    private List<T> _list;      //add bu listeye ekliyor. Save de hardiskke  kaydediyor.
+    protected List<T> List;      //add bu listeye ekliyor. Save de hardiskke  kaydediyor.
     // private string _taskFilePath;
     // private string _devFilePath;
 
        
     public GenericRepository(List<T> list)
     {
-        _list = list; 
+        List = list; 
     }
 
      // SaveDb
@@ -23,14 +23,13 @@ public class GenericRepository<T> where T : Document
 
      public string Add(T data ) //
     {
-        _list.Add(data);
+        List.Add(data);
         return "Data başarılı bir şekilde eklenmiştir.";
     }
 
-    public List<T?> GetById(Guid id)
+    public T? GetById(Guid id)
     {
-        var searchId= _list.FirstOrDefault(x => x.Id == id);
-        return new List<T?> { searchId }; // Emin olamadım bu kısımdan.
+        return List.FirstOrDefault(x => x.Id == id);
     }
 
     public void Update(T data)
@@ -40,7 +39,7 @@ public class GenericRepository<T> where T : Document
 
     public string? Delete(Guid id)     // Silinen kullanıcıyı dönmesini düşündüm. 
     {
-        var searchId = _list.FirstOrDefault(x => x.Id == id);
+        var searchId = List.FirstOrDefault(x => x.Id == id);
         if (true)
         {
             
