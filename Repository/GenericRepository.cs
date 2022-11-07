@@ -1,18 +1,17 @@
-using Case2GK20221102.Controllers;
 using Case2GK20221102.Entities;
 
 namespace Case2GK20221102.Repository;
 
 public class GenericRepository<T> where T : Document
 {
-    protected List<T> List;      //add bu listeye ekliyor. Save de hardiskke  kaydediyor.
+    private readonly List<T> _list;      //add bu listeye ekliyor. Save de hardiskke  kaydediyor.
     // private string _taskFilePath;
     // private string _devFilePath;
 
        
     public GenericRepository(List<T> list)
     {
-        List = list; 
+        _list = list; 
     }
 
      // SaveDb
@@ -23,29 +22,27 @@ public class GenericRepository<T> where T : Document
 
      public string Add(T data ) //
     {
-        List.Add(data);
+        _list.Add(data);
         return "Data başarılı bir şekilde eklenmiştir.";
     }
 
     public T? GetById(Guid id)
     {
-        return List.FirstOrDefault(x => x.Id == id);
+        return _list.FirstOrDefault(x => x.Id == id);
     }
 
     public void Update(T data)
     {
         
+        
     }
 
-    public string? Delete(Guid id)     // Silinen kullanıcıyı dönmesini düşündüm. 
+    public void Delete(Guid id)  
     {
-        var searchId = List.FirstOrDefault(x => x.Id == id);
-        if (true)
-        {
-            
-        }
-        
-        return null;
+       var searchId =  _list.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException();
+      
+        _list.Remove(searchId);
+       
     }
 
 }
