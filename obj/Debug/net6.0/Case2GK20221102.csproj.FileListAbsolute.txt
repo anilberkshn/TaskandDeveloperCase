@@ -1,0 +1,5 @@
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\Case2GK20221102.csproj.AssemblyReference.cache
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\Case2GK20221102.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\Case2GK20221102.AssemblyInfoInputs.cache
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\Case2GK20221102.AssemblyInfo.cs
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\Case2GK20221102.csproj.CoreCompileInputs.cache
