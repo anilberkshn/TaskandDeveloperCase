@@ -11,6 +11,29 @@ public class DeveloperService
      public DeveloperService()
      {
           _repositoryDeveloper = new GenericRepository<Developer>(_developersList);
+     } 
+     public Guid Add(Developer developer)
+     {
+          return Guid.Empty; // gecici
      }
-     //repository  <developer> 
+
+     public Developer? Get(string id)
+     {
+          return null;
+     }
+     
+     public bool Upsert(Developer developer)
+     {
+          return true;          // gecici
+     }
+
+     public bool Delete(Developer developer)
+     {
+          return false;          // gecici
+     }
+
+     public Developer[] GetAll()
+     {
+          return _developersList.ToArray();            //geçici
+     }
 }

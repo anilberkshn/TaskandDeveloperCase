@@ -23,7 +23,7 @@ public class GenericRepository<T> where T : Document
         File.WriteAllText(filePath, jsonText);
      }
 
-     public string Add(T data ) //
+     public string Add(T data ) //guid 
     {
         _list.Add(data);
         return "Data başarılı bir şekilde eklenmiştir.";
@@ -34,14 +34,14 @@ public class GenericRepository<T> where T : Document
         return _list.FirstOrDefault(x => x.Id == id);
     }
                     
-    public void Update(T data) //List<T?> 
+    public void Update(T data) //List<T?>  bool 
     {
         var searchId = _list.FirstOrDefault(x => x.Id == data.Id) ?? throw new InvalidOperationException();
         _list.Remove(searchId);
         _list.Add(data);
     }
 
-    public void Delete(Guid id)  
+    public void Delete(Guid id)  //bool
     {
       // var searchId =  _list.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException();
       
