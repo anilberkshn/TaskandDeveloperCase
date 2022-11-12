@@ -6,41 +6,54 @@ namespace Case2GK20221102.Services;
 
 public abstract class TaskService
 {    
-    private readonly List<Task> _tasksList = new List<Task>();
-    private readonly GenericRepository<Task> _repositoryTask;
+  private readonly GenericRepository<Task> _repositoryTask;
 
-    public TaskService()
+    public TaskService(GenericRepository<Task> genericRepository)
     {
-        _repositoryTask = new GenericRepository<Task>(_tasksList);
+        _repositoryTask = genericRepository;
     }
 
-    public Guid Add(Task task)
+    public Guid Add(string[] taskParts)
     {
-        return Guid.Empty;          // gecici
+        var task = new Task
+        {
+            Id = new Guid(),
+            Title = taskParts[1],
+            Description = taskParts[2],
+            Department = Convert.ToInt32(taskParts[3]),
+            Status = 1
+        };
+        _repositoryTask.Add(task);
+        return task.Id;
     }
 
     public Task? Get(string id)
     {
-        return null;          // gecici
-    }
- 
-    public bool Upsert(Task task)
-    {
-        return true;          // gecici
+        return _repositoryTask.GetById(Guid.Parse(id));        
     }
 
-    public bool Delete(Task task)
+    public bool Update(string[] taskParts)
     {
-        return false;          // gecici
+        var task = new Task
+        {
+            Id =Guid.Parse(taskParts[1]),
+            Title = taskParts[2],
+            Description = taskParts[3],
+            Department = Convert.ToInt32(taskParts[4]),
+            Status = Convert.ToInt32(taskParts[5]),
+            DeveloperId = Guid.Parse(taskParts[6])
+        };
+       
+        return  _repositoryTask.Update(task);         // gecici
     }
 
-    public Task[]? GetUnAssignet()
+    public bool Delete(string[] taskParts)
     {
-        return null;          // gecici
+        return _repositoryTask.Delete(Guid.Parse(taskParts[1]));          // gecici
     }
-
-    public Task[] GetAll()
+    
+    public List<Task> GetAll()
     {
-        return _tasksList.ToArray();          // gecici
+        return _repositoryTask.GetAll();          // gecici
     }
 }

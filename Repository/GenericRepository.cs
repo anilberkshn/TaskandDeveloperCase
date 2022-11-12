@@ -3,13 +3,10 @@ using Newtonsoft.Json;
 
 namespace Case2GK20221102.Repository;
 
-public class GenericRepository<T> where T : Document
+public class GenericRepository<T> where T : Document 
 {
     private readonly List<T> _list;      //add bu listeye ekliyor. Save de hardiskke  kaydediyor.
-    // private string _taskFilePath;
-    // private string _devFilePath;
-
-       
+   
     public GenericRepository(List<T> list)
     {
         _list = list; 
@@ -23,10 +20,10 @@ public class GenericRepository<T> where T : Document
         File.WriteAllText(filePath, jsonText);
      }
 
-     public string Add(T data ) //guid 
+     public bool  Add(T data ) //guid 
     {
         _list.Add(data);
-        return "Data başarılı bir şekilde eklenmiştir.";
+        return true;
     }
 
     public T? GetById(Guid id)
@@ -34,19 +31,22 @@ public class GenericRepository<T> where T : Document
         return _list.FirstOrDefault(x => x.Id == id);
     }
                     
-    public void Update(T data) //List<T?>  bool 
+    public bool Update(T data) //List<T?>  bool 
     {
         var searchId = _list.FirstOrDefault(x => x.Id == data.Id) ?? throw new InvalidOperationException();
         _list.Remove(searchId);
         _list.Add(data);
+        return true;
     }
 
-    public void Delete(Guid id)  //bool
+    public bool Delete(Guid id)  //bool
     {
-      // var searchId =  _list.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException();
-      
-        _list.Remove(_list.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException());
-       
+        return _list.Remove(_list.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException());
+    }
+
+    public List<T> GetAll()
+    {
+        return _list;
     }
 
 }
