@@ -5,7 +5,7 @@ namespace Case2GK20221102.Services;
 
 public class DeveloperService
 {
-     private GenericRepository<Developer> _repositoryDeveloper;
+     private readonly GenericRepository<Developer> _repositoryDeveloper;
 
      public DeveloperService(GenericRepository<Developer> genericRepository)
      {
@@ -16,6 +16,7 @@ public class DeveloperService
      {
           var developer = new Developer
           {
+               Id = new Guid(),
                Name = developerParts[1],
                Surname = developerParts[2],
                Department =Convert.ToInt32(developerParts[3])

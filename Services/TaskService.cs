@@ -1,5 +1,4 @@
 using Case2GK20221102.Repository;
-using Case2GK20221102.Entities;
 using Task = Case2GK20221102.Entities.Task;  // bu kısmı neden d
 
 namespace Case2GK20221102.Services;
@@ -44,7 +43,7 @@ public abstract class TaskService
             DeveloperId = Guid.Parse(taskParts[6])
         };
        
-        return  _repositoryTask.Update(task);         // gecici
+        return  _repositoryTask.Update(task); 
     }
 
     public bool Delete(string[] taskParts)
@@ -54,6 +53,6 @@ public abstract class TaskService
     
     public List<Task> GetAll()
     {
-        return _repositoryTask.GetAll();          // gecici
+        return _repositoryTask.GetAll();    
     }
 }
