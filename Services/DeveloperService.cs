@@ -5,6 +5,7 @@ namespace Case2GK20221102.Services;
 
 public class DeveloperService
 {
+     //DENEME COMMITI
      private readonly GenericRepository<Developer> _repositoryDeveloper;
 
      public DeveloperService(GenericRepository<Developer> genericRepository)
