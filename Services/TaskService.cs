@@ -17,9 +17,9 @@ public abstract class TaskService
         var task = new Task
         {
             Id = new Guid(),
-            Title = taskParts[1],
-            Description = taskParts[2],
-            Department = Convert.ToInt32(taskParts[3]),
+            Title = taskParts[2],
+            Description = taskParts[3],
+            Department = Convert.ToInt32(taskParts[4]),
             Status = 1
         };
         _repositoryTask.Add(task);
@@ -35,12 +35,12 @@ public abstract class TaskService
     {
         var task = new Task
         {
-            Id =Guid.Parse(taskParts[1]),
-            Title = taskParts[2],
-            Description = taskParts[3],
-            Department = Convert.ToInt32(taskParts[4]),
-            Status = Convert.ToInt32(taskParts[5]),
-            DeveloperId = Guid.Parse(taskParts[6])
+            Id =Guid.Parse(taskParts[2]),
+            Title = taskParts[3],
+            Description = taskParts[4],
+            Department = Convert.ToInt32(taskParts[5]),
+            Status = Convert.ToInt32(taskParts[6]),
+            DeveloperId = Guid.Parse(taskParts[7])
         };
        
         return  _repositoryTask.Update(task); 
@@ -48,7 +48,7 @@ public abstract class TaskService
 
     public bool Delete(string[] taskParts)
     {
-        return _repositoryTask.Delete(Guid.Parse(taskParts[1]));          // gecici
+        return _repositoryTask.Delete(Guid.Parse(taskParts[2]));    
     }
     
     public List<Task> GetAll()

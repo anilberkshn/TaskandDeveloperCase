@@ -18,9 +18,9 @@ public class DeveloperService
           var developer = new Developer
           {
                Id = new Guid(),
-               Name = developerParts[1],
-               Surname = developerParts[2],
-               Department =Convert.ToInt32(developerParts[3])
+               Name = developerParts[2],
+               Surname = developerParts[3],
+               Department =Convert.ToInt32(developerParts[4])
           };
            
           _repositoryDeveloper.Add(developer);
@@ -36,17 +36,17 @@ public class DeveloperService
      {
           var developer = new Developer
           {
-               Id = Guid.Parse(developerParts[1]),
-               Name = developerParts[2],
-               Surname = developerParts[3],
-               Department =Convert.ToInt32(developerParts[4])
+               Id = Guid.Parse(developerParts[2]),
+               Name = developerParts[3],
+               Surname = developerParts[4],
+               Department =Convert.ToInt32(developerParts[5])
           };
           return _repositoryDeveloper.Update(developer);
      }
 
      public bool Delete(string[] developerParts)
      {
-          return _repositoryDeveloper.Delete(Guid.Parse(developerParts[1]));          
+          return _repositoryDeveloper.Delete(Guid.Parse(developerParts[2]));          
      }
 
      public List<Developer> GetAll()
