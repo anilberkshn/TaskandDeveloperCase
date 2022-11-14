@@ -15,18 +15,19 @@ public class DeveloperController
         _taskService = taskService;
     }
 
-    public void ControlDeveloper(string[] developerParts)
+    public void DeleteTaskDeveloperId(string[] developerParts)
     {
         if (developerParts[1] == "dev" && developerParts[0] == "delete")
         {
             var task = new Task();
-            _developerService.Delete(developerParts);
-           // if (developerParts[2] == _taskService.Get(developerParts[2]))
+            if (developerParts[2] == Convert.ToString(task.DeveloperId))
             {
-                
+                task.DeveloperId = Guid.Empty;
             }
-            
+            _developerService.Delete(developerParts);
         }
+        
+        
 
        
 
