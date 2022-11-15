@@ -16,29 +16,30 @@ public class TaskController
         _developerService = developerService;
         _taskService = taskService;
     }
-    public void TaskAdd(string[] taskParts)   //Guid
-    {  
+
+    public void TaskAdd(string[] taskParts) //Guid
+    {
     }
-    
+
     public bool TaskAssign(string[] taskParts)
-    {   
+    {
         var developer = new Developer();
         var task = new Task();
-       
-        if (taskParts[7] == Convert.ToString(developer.Id) && 
-            taskParts[5] ==Convert.ToString(developer.Department) &&
+
+        if (taskParts[7] == Convert.ToString(developer.Id) &&
+            taskParts[5] == Convert.ToString(developer.Department) &&
             taskParts[2] == Convert.ToString(task.Id))
         {
-           _taskService.Update(taskParts); 
-           //Update,task,Id,title,description,department,status,DeveloperId
+            _taskService.Update(taskParts);
+            //Update,task,Id,title,description,department,status,DeveloperId
         }
-        if (taskParts[7] == Convert.ToString(developer.Id) && 
-            taskParts[5] ==Convert.ToString(developer.Department))
+
+        if (taskParts[7] == Convert.ToString(developer.Id) &&
+            taskParts[5] == Convert.ToString(developer.Department))
         {
-            _taskService.Add(taskParts); 
+            _taskService.Add(taskParts);
         }
+
         return true;
     }
-
-
-} 
+}
