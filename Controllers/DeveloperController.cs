@@ -25,6 +25,22 @@ public class DeveloperController
         }
 
         _developerService.Delete(developerParts);
+        var tasks = _taskService.GetAll();
+
+        foreach (var t in tasks)
+        {
+            
+        }
         // }
     }
+    // 1. Aşaam
+    //ya string arrayi al yada string al içerde parçalaa
+    //parçaları valide et if if diye validasyondan geçenmeyenler için error fırlat
+    // Errorların custom error oluşturma 
+    // bu şekilde crud işlemleri tamamlanacak.
+    
+    //2. aşama
+    // 1 dev silindiğinde ()
+    
+    
 }

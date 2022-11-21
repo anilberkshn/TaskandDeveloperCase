@@ -19,6 +19,7 @@ public class TaskController
 
     public void TaskAdd(string[] taskParts) //Guid
     {
+        //todo: iflerle validasyon yazılacak
     }
 
     public bool TaskAssign(string[] taskParts)
