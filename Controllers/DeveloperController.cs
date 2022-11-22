@@ -26,11 +26,12 @@ public class DeveloperController
     {
         //0-1 ve bir partı routerda yönlenmesi gerekli diye düşündüm. 
         // todo: servis kısmında add de oluşturulacak nesne için buradan doğru gitmesi
-        if (developerParts[2] == null && developerParts[3] == null )
-        {
-            throw new Exception("ad soyad boş olamaz.");
-        }
-        else if (developerParts[4] is not ("0" or "1" or "2"))
+        // if (developerParts[2] == null || developerParts[3] == null )
+        // {
+        //     throw new Exception("ad veya  soyad boş olamaz.");
+        // }
+        // else 
+        if (developerParts[4] is not ("0" or "1" or "2"))
         {
             throw new Exception("Developer Departmanı 0,1,2 olmalıdır.");
         }
@@ -62,7 +63,7 @@ public class DeveloperController
 
             if (sayac == 0)
             {
-                throw new Exception("Girilen id değerine ait kullanıcı bulunamamıştır)";
+                throw new Exception("Girilen id değerine ait kullanıcı bulunamamıştır");
             }
         // }
         // catch (Exception )
