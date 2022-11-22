@@ -47,23 +47,29 @@ public class DeveloperController
 
     public void DeleteDeveloper(string[] developerParts) // Delete,Developer,Id
     {
-        try
-        {
+        // try
+        // {
+            int sayac = 0; 
             var developers = _developerService.GetAll();
             foreach (var dev in developers)
             {
                 if (dev.Id == Guid.Parse(developerParts[2]))
                 {
                     _developerService.Delete(developerParts);
-              
+                    sayac++;
                 }
             }
-        }
-        catch (Exception )
-        {
-            Console.WriteLine("Girilen id değerine ait kullanıcı bulunamamıştır");
-            throw;
-        }
+
+            if (sayac == 0)
+            {
+                throw new Exception("Girilen id değerine ait kullanıcı bulunamamıştır)";
+            }
+        // }
+        // catch (Exception )
+        // {
+        //     Console.WriteLine("Girilen id değerine ait kullanıcı bulunamamıştır");
+        //     throw;
+        // }
        
         // sürekli hata verir.
         //throw new Exception("Girilen id değerine ait kullanıcı bulunamamıştır");
