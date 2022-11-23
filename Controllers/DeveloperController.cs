@@ -14,18 +14,10 @@ public class DeveloperController
         _developerService = developerService;
         _taskService = taskService;
     }
-    //
-    // Developer service add methodu
-    // Add,developer,name,surname,departmant
-    //     DeveloperService Update Method
-    // Update,developer,Id,name,surname,department
-    //     DeveloperService Delete Method
-    // Delete,Developer,Id
-    //     
-    public void AddDeveloper(string[] developerParts) // Add,developer,name,surname,departmant
+   
+    public Guid AddDeveloper(string[] developerParts) // Add,developer,name,surname,departmant
     {
         //0-1 ve bir partı routerda yönlenmesi gerekli diye düşündüm. 
-        // todo: servis kısmında add de oluşturulacak nesne için buradan doğru gitmesi
         // if (developerParts[2] == null || developerParts[3] == null )
         // {
         //     throw new Exception("ad veya  soyad boş olamaz.");
@@ -35,18 +27,34 @@ public class DeveloperController
         {
             throw new Exception("Developer Departmanı 0,1,2 olmalıdır.");
         }
+        
+        return _developerService.Add(developerParts);
+    }
+
+    public bool UpdateDeveloper(string[] developerParts) 
+        // Update,developer,Id,name,surname,department
+    {
+        var developers = _developerService.GetAll();
+
+        if (developerParts[5] is not ("0" or "1" or "2"))
+        {
+            throw new Exception("Developer Departmanı 0,1,2 olmalıdır.");
+        }
         else
         {
-            _developerService.Add(developerParts);
+            foreach (var developer in developers)
+            {
+                if (developer.Id == Guid.Parse(developerParts[2]))
+                {
+                    _developerService.Update(developerParts);
+                }
+            }
         }
+
+        return _developerService.Update(developerParts);
     }
 
-    public void UpdateDeveloper(string[] developerParts)
-    {
-        
-    }
-
-    public void DeleteDeveloper(string[] developerParts) // Delete,Developer,Id
+    public bool DeleteDeveloper(string[] developerParts) // Delete,Developer,Id
     {
         // try
         // {
@@ -65,43 +73,63 @@ public class DeveloperController
             {
                 throw new Exception("Girilen id değerine ait kullanıcı bulunamamıştır");
             }
-        // }
-        // catch (Exception )
-        // {
-        //     Console.WriteLine("Girilen id değerine ait kullanıcı bulunamamıştır");
-        //     throw;
-        // }
-       
-        // sürekli hata verir.
-        //throw new Exception("Girilen id değerine ait kullanıcı bulunamamıştır");
+
+            return _developerService.Delete(developerParts); 
+            //// Her zaman true dönecek. 
+
+            // }
+            // catch (Exception )
+            // {
+            //     Console.WriteLine("Girilen id değerine ait kullanıcı bulunamamıştır");
+            //     throw;
+            // }
+
+            // sürekli hata verir.
+            //throw new Exception("Girilen id değerine ait kullanıcı bulunamamıştır");
     }
 
 
-    public Developer GetDeveloper(string id)
+    public Developer GetDeveloper(string[] developerParts)
+    //Service string id istiyor gelen partı bölüp gönderdim.
+    //Get,Develepor,Id program girişinde beklenen.
     {
-        // todo: Ne yapacağını tekrar düşüneceğim, return hata vermesin diye yazdım. 
-        return _developerService.Get(id);
-    }
-
-
-    public void DeleteTaskDeveloperId(string[] developerParts)
-    {
-        // if (developerParts[1] == "dev" && developerParts[0] == "delete")
+        
+        var developers = _developerService.GetAll();
+        
+        foreach (var dev in developers)
+        {
+            if (dev.Id == Guid.Parse(developerParts[2]))
+            {
+                _developerService.Get(developerParts[2]);
+            }
+        }
+        // if (_developerService.Get(id)== null)
         // {
-        var task = new Task(); // burada bomboş yeni bir task oluşturmak yanlış. 
-        if (developerParts[2] == Convert.ToString(task.DeveloperId))
-        {
-            task.DeveloperId = Guid.Empty;
-        }
-
-        _developerService.Delete(developerParts);
-        var tasks = _taskService.GetAll();
-
-        foreach (var t in tasks)
-        {
-        }
+        //     throw new Exception("Aranan id li developer bulunamamıştır.");
         // }
+
+        return _developerService.Get(developerParts[2]) ?? throw new InvalidOperationException();
     }
+
+
+    // public void DeleteTaskDeveloperId(string[] developerParts)
+    // {
+    //     // if (developerParts[1] == "dev" && developerParts[0] == "delete")
+    //     // {
+    //     var task = new Task(); // burada bomboş yeni bir task oluşturmak yanlış. 
+    //     if (developerParts[2] == Convert.ToString(task.DeveloperId))
+    //     {
+    //         task.DeveloperId = Guid.Empty;
+    //     }
+    //
+    //     _developerService.Delete(developerParts);
+    //     var tasks = _taskService.GetAll();
+    //
+    //     foreach (var t in tasks)
+    //     {
+    //     }
+    //     // }
+    // }
     // 1. Aşaam
     //ya string arrayi al yada string al içerde parçalaa
     //parçaları valide et if if diye validasyondan geçenmeyenler için error fırlat
