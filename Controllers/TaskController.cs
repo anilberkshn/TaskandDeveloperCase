@@ -6,6 +6,17 @@ namespace Case2GK20221102.Controllers;
 
 //assign işleminde ilgili developerın var olduğunu doğrulamak.
 //Task ile developer’ın departmanlarının aynı olduğunu doğrulamak
+
+// Task statuleri:
+// 0: -
+// 1: Created
+// 2: In-Dev
+// 3: CompletedDepartment bilgileri:
+//
+// 0: -
+// 1: Backend
+// 2: Frontend
+
 public class TaskController
 {
     private DeveloperService _developerService;
@@ -17,30 +28,68 @@ public class TaskController
         _taskService = taskService;
     }
 
-    public void TaskAdd(string[] taskParts) //Guid
+    public Guid AddTask(string[] taskParts)//Add,task,title,description, department,
     {
-        //todo: iflerle validasyon yazılacak
+        if (taskParts[4] is not ("0" or "1" or "2"))
+        {
+            throw new Exception("Task Departmanı 0,1,2 olmalıdır.");
+        }
+        return _taskService.Add(taskParts);
     }
 
-    public bool TaskAssign(string[] taskParts)
+    public Task GetTask(string[] taskParts) //Delete,task,id
     {
-        var developer = new Developer();
-        var task = new Task();
-
-        if (taskParts[7] == Convert.ToString(developer.Id) &&
-            taskParts[5] == Convert.ToString(developer.Department) &&
-            taskParts[2] == Convert.ToString(task.Id))
+        var tasks = _taskService.GetAll();
+        foreach (var task in tasks)
         {
-            _taskService.Update(taskParts);
-            //Update,task,Id,title,description,department,status,DeveloperId
+            if (task.Id == Guid.Parse(taskParts[2]))
+            {
+                _taskService.Get(taskParts[2]);
+            }
         }
-
-        if (taskParts[7] == Convert.ToString(developer.Id) &&
-            taskParts[5] == Convert.ToString(developer.Department))
-        {
-            _taskService.Add(taskParts);
-        }
-
-        return true;
+        return _taskService.Get(taskParts[2]) ?? throw new InvalidOperationException();
     }
+
+    public bool UpdateTask(string[] taskParts)
+    //Update,task,Id,title,description,department,status,DeveloperId
+    //Departmant 
+    //Statusun bitmemiş olmalı
+    //DeveloperId
+    {
+        if (taskParts[5] is not ("0" or "1" or "2"))
+        {
+            throw new Exception("Task Departmanı 0,1,2 olmalıdır.");
+        }
+        
+        return _taskService.Update(taskParts);
+    }
+
+    public bool DeleteTask(string[] taskParts)
+    {
+        return _taskService.Delete(taskParts);
+    }
+    
+    
+    
+    // public bool TaskAssign(string[] taskParts)
+    // {
+    //     var developer = new Developer();
+    //     var task = new Task();
+    //
+    //     if (taskParts[7] == Convert.ToString(developer.Id) &&
+    //         taskParts[5] == Convert.ToString(developer.Department) &&
+    //         taskParts[2] == Convert.ToString(task.Id))
+    //     {
+    //         _taskService.Update(taskParts);
+    //         //Update,task,Id,title,description,department,status,DeveloperId
+    //     }
+    //
+    //     if (taskParts[7] == Convert.ToString(developer.Id) &&
+    //         taskParts[5] == Convert.ToString(developer.Department))
+    //     {
+    //         _taskService.Add(taskParts);
+    //     }
+    //
+    //     return true;
+    // }
 }
