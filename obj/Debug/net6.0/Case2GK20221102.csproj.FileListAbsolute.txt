@@ -3,3 +3,15 @@ C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\Ca
 C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\Case2GK20221102.AssemblyInfoInputs.cache
 C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\Case2GK20221102.AssemblyInfo.cs
 C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\Case2GK20221102.csproj.CoreCompileInputs.cache
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\bin\Debug\net6.0\Case2GK20221102.exe
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\bin\Debug\net6.0\Case2GK20221102.deps.json
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\bin\Debug\net6.0\Case2GK20221102.runtimeconfig.json
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\bin\Debug\net6.0\Case2GK20221102.dll
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\bin\Debug\net6.0\Case2GK20221102.pdb
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\Case2GK20221102.csproj.CopyComplete
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\Case2GK20221102.dll
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\refint\Case2GK20221102.dll
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\Case2GK20221102.pdb
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\Case2GK20221102.genruntimeconfig.cache
+C:\Users\asuspc\RiderProjects\ABerkSolution1\Case2GK20221102\obj\Debug\net6.0\ref\Case2GK20221102.dll

@@ -93,24 +93,16 @@ public class DeveloperController
     //Service string id istiyor gelen partı bölüp gönderdim.
     //Get,Develepor,Id program girişinde beklenen.
     {
-        
-        var developers = _developerService.GetAll();
-        
-        foreach (var dev in developers)
-        {
-            if (dev.Id == Guid.Parse(developerParts[2]))
-            {
-                _developerService.Get(developerParts[2]);
-            }
-        }
-        // if (_developerService.Get(id)== null)
-        // {
-        //     throw new Exception("Aranan id li developer bulunamamıştır.");
-        // }
-
         return _developerService.Get(developerParts[2]) ?? throw new InvalidOperationException();
     }
 
+    
+    
+    
+    
+    
+    
+    //*********************************2. KISIM 
 
     // public void DeleteTaskDeveloperId(string[] developerParts)
     // {
