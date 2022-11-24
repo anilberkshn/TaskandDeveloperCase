@@ -30,8 +30,10 @@ public class TaskController
 
     public Guid AddTask(string[] taskParts)//Add,task,title,description, department,
     {
+        //TODO: title, description vb diğer ne alanların varsa onlar için de validasyon yazmayı unutma
         if (taskParts[4] is not ("0" or "1" or "2"))
         {
+            //TODO: Buralarda build-in exception'ı direkt trowlamak yerine kendin bir exception üretip (build-in exception'dan) onu throwlarsan daha iyi olur.
             throw new Exception("Task Departmanı 0,1,2 olmalıdır.");
         }
         return _taskService.Add(taskParts);
@@ -39,11 +41,13 @@ public class TaskController
 
     public Task GetTask(string[] taskParts) //Delete,task,id
     {
+        //TODO: Bu get methodu mu delete methodu mu? bir üst satırdaki yorumda delete yazdığı için sordum. Get ise tüm taskları çekip içinde aramana gerek yok. Direkt getbyId methodunu kullanabilirisn
         var tasks = _taskService.GetAll();
         foreach (var task in tasks)
         {
             if (task.Id == Guid.Parse(taskParts[2]))
             {
+                //TODO: buradaki methodunu direkt kullanabilirsin. for dönmene gerek yok yani.
                 _taskService.Get(taskParts[2]);
             }
         }
@@ -56,6 +60,7 @@ public class TaskController
     //Statusun bitmemiş olmalı
     //DeveloperId
     {
+        //TODO: validasyonların aynı şekilde, tüm parçalar için yapabilirsin.
         if (taskParts[5] is not ("0" or "1" or "2"))
         {
             throw new Exception("Task Departmanı 0,1,2 olmalıdır.");
