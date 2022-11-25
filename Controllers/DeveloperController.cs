@@ -1,4 +1,5 @@
 using Case2GK20221102.Entities;
+using Case2GK20221102.Errors;
 using Case2GK20221102.Services;
 using Task = Case2GK20221102.Entities.Task;
 
@@ -17,13 +18,17 @@ public class DeveloperController
    
     public Guid AddDeveloper(string[] developerParts) // Add,developer,name,surname,departmant
     {
-        //0-1 ve bir partı routerda yönlenmesi gerekli diye düşündüm. 
-        // if (developerParts[2] == null || developerParts[3] == null )
-        // {
-        //     throw new Exception("ad veya  soyad boş olamaz.");
-        // }
-        // else 
-        if (developerParts[4] is not ("0" or "1" or "2"))
+        // todo: 0-1 ve bir partı routerda yönlenmesi gerekli diye düşündüm. 
+        
+        if (developerParts[2].Length < 2)
+        {
+            throw new ValidationErrorException();
+        }
+        else if (developerParts[3].Length < 2)
+        {
+            throw new ValidationErrorException();
+        }
+        else if (developerParts[4] is not ("0" or "1" or "2"))
         {
             throw new Exception("Developer Departmanı 0,1,2 olmalıdır.");
         }
@@ -35,18 +40,27 @@ public class DeveloperController
         //Service string id istiyor gelen partı bölüp gönderdim.
         //Get,Develepor,Id program girişinde beklenen.
     {
-        return _developerService.Get(developerParts[2]) ?? throw new InvalidOperationException();
+        return _developerService.Get(developerParts[2]) ?? throw new DeveloperNotFoundException();
     }
     
     public bool UpdateDeveloper(string[] developerParts) 
-        // Update,developer,Id,name,surname,department
-        // todo: bu kısımdaki validasyonlarda yapılacak.
-    {
-        var developers = _developerService.GetAll();
-
-        if (developerParts[5] is not ("0" or "1" or "2"))
+        // Update 0,developer 1 ,Id 2 ,name 3 ,surname 4 ,department 5
+       {
+        if (developerParts[2].Length < 2 )
         {
-            throw new Exception("Developer Departmanı 0,1,2 olmalıdır.");
+            throw new ValidationErrorException(); 
+        }
+        else if (developerParts[3].Length < 2 )
+        {
+            throw new ValidationErrorException();
+        }
+        else if (developerParts[4].Length < 2)
+        {
+            throw new ValidationErrorException();
+        }
+        else if (developerParts[5] is not ("0" or "1" or "2"))
+        {
+            throw new ValidationErrorException();
         }
        
         return _developerService.Update(developerParts);
