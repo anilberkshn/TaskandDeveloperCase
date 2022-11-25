@@ -30,9 +30,17 @@ public class DeveloperController
         
         return _developerService.Add(developerParts);
     }
-
+    
+    public Developer GetDeveloper(string[] developerParts)
+        //Service string id istiyor gelen partı bölüp gönderdim.
+        //Get,Develepor,Id program girişinde beklenen.
+    {
+        return _developerService.Get(developerParts[2]) ?? throw new InvalidOperationException();
+    }
+    
     public bool UpdateDeveloper(string[] developerParts) 
         // Update,developer,Id,name,surname,department
+        // todo: bu kısımdaki validasyonlarda yapılacak.
     {
         var developers = _developerService.GetAll();
 
@@ -40,17 +48,7 @@ public class DeveloperController
         {
             throw new Exception("Developer Departmanı 0,1,2 olmalıdır.");
         }
-        else
-        {
-            foreach (var developer in developers)
-            {
-                if (developer.Id == Guid.Parse(developerParts[2]))
-                {
-                    _developerService.Update(developerParts);
-                }
-            }
-        }
-
+       
         return _developerService.Update(developerParts);
     }
 
@@ -58,21 +56,21 @@ public class DeveloperController
     {
         // try
         // {
-            int sayac = 0; 
-            var developers = _developerService.GetAll();
-            foreach (var dev in developers)
-            {
-                if (dev.Id == Guid.Parse(developerParts[2]))
-                {
-                    _developerService.Delete(developerParts);
-                    sayac++;
-                }
-            }
-
-            if (sayac == 0)
-            {
-                throw new Exception("Girilen id değerine ait kullanıcı bulunamamıştır");
-            }
+            // int sayac = 0; 
+            // var developers = _developerService.GetAll();
+            // foreach (var dev in developers)
+            // {
+            //     if (dev.Id == Guid.Parse(developerParts[2]))
+            //     {
+            //         _developerService.Delete(developerParts);
+            //         sayac++;
+            //     }
+            // }
+            //
+            // if (sayac == 0)
+            // {
+            //     throw new Exception("Girilen id değerine ait kullanıcı bulunamamıştır");
+            // }
 
             return _developerService.Delete(developerParts); 
             //// Her zaman true dönecek. 
@@ -88,13 +86,6 @@ public class DeveloperController
             //throw new Exception("Girilen id değerine ait kullanıcı bulunamamıştır");
     }
 
-
-    public Developer GetDeveloper(string[] developerParts)
-    //Service string id istiyor gelen partı bölüp gönderdim.
-    //Get,Develepor,Id program girişinde beklenen.
-    {
-        return _developerService.Get(developerParts[2]) ?? throw new InvalidOperationException();
-    }
 
     
     
