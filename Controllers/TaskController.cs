@@ -109,34 +109,28 @@ public class TaskController
     //*********************************2. KISIM 
     public bool TaskAssign(string[] taskParts)
     // todo: taskassign için Add de developer id yapmadığımız için developerId birtek update de var diye ona göre varsaydım. 
-    ////Update,task,Id 2 ,title 3 ,description 4 ,department 5 ,status 6 ,DeveloperId 7
+    ////Update(Assign) ,task,Id 2 ,title 3 ,description 4 ,department 5 ,status 6 ,DeveloperId 7
     {
         var tasks = _taskService.GetAll();
         var developers = _developerService.Get(taskParts[7]);
 
         foreach (var task in tasks)
         {
-            if (task.DeveloperId == developers.Id)
+            if (   task.Id == Guid.Parse(taskParts[2])
+                && taskParts[7] == developers!.Id.ToString() 
+                && taskParts[5] == developers.Department.ToString())
             {
-                
+                UpdateTask(taskParts);
+            }
+            else if (taskParts[7] == developers!.Id.ToString()
+                     && taskParts[5] == developers.Department.ToString())
+            {
+                AddTask(taskParts);
+                //todo: Add,task,title,description, department, (normalde addTask metotu
             }
             
         }
     
-        // if (taskParts[7] == Convert.ToString(developer.Id) &&
-        //     taskParts[5] == Convert.ToString(developer.Department) &&
-        //     taskParts[2] == Convert.ToString(task.Id))
-        // {
-        //     _taskService.Update(taskParts);
-        //     //Update,task,Id,title,description,department,status,DeveloperId
-        // }
-        //
-        // if (taskParts[7] == Convert.ToString(developer.Id) &&
-        //     taskParts[5] == Convert.ToString(developer.Department))
-        // {
-        //     _taskService.Add(taskParts);
-        // }
-    
-        return true;
+        return false;
     }
 }
