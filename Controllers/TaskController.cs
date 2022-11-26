@@ -107,13 +107,19 @@ public class TaskController
 
 
     //*********************************2. KISIM 
-    public bool TaskUnAssign(string[] taskParts)
+    public bool TaskAssign(string[] taskParts)
+    // todo: taskassign için Add de developer id yapmadığımız için developerId birtek update de var diye ona göre varsaydım. 
+    ////Update,task,Id 2 ,title 3 ,description 4 ,department 5 ,status 6 ,DeveloperId 7
     {
-        var developers = _developerService.GetAll();
         var tasks = _taskService.GetAll();
+        var developers = _developerService.Get(taskParts[7]);
 
         foreach (var task in tasks)
         {
+            if (task.DeveloperId == developers.Id)
+            {
+                
+            }
             
         }
     

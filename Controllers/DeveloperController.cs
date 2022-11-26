@@ -65,33 +65,34 @@ public class DeveloperController
         return _developerService.Update(developerParts);
     }
 
-    public bool DeleteDeveloper(string[] developerParts) // Delete,Developer,Id
+    public bool DeleteDeveloper(string[] developerParts) // Delete,Developer,DeveloperId
     {
+        /*2.aşama için aşağıda developer silindiğinde üstündebitmemiş tasklar
+         varsa onlardan developeri silmek için bu metot ekleeme yaptım. 
+        */
+        if (_developerService.Delete(developerParts)) 
+        {
+         UnassignDeveloperTask(developerParts);   
+        }
         return _developerService.Delete(developerParts);
     }
 
 
     //*********************************2. KISIM 
     
-     public void UnassignDeveloperTask(string[] developerParts)
+     public void UnassignDeveloperTask(string[] developerParts) 
+         //delete,developer,DeveloperId
      {
-         // if (developerParts[1] == "dev" && developerParts[0] == "delete")
-         // {
          var tasks = _taskService.GetAll(); 
          
          foreach (var task in tasks)
          {
-             if (developerParts[2] == Convert.ToString(task.DeveloperId))
+             if (developerParts[2] == Convert.ToString(task.DeveloperId)
+                 && task.Status != 3)
              {
                  task.DeveloperId = Guid.Empty;
              }
          }
-         
-         
-         _developerService.Delete(developerParts);
-
-       
-         
      }
     
      
