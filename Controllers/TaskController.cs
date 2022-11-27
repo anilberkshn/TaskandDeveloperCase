@@ -39,15 +39,15 @@ public class TaskController
         {
             throw new ValidationErrorException();
         }
-        else if (taskParts[3].Length < 3)
+        if (taskParts[3].Length < 3)
         {
             throw new ValidationErrorException();
         }
-        else if (taskParts[4] is not ("0" or "1" or "2"))
+        if (taskParts[4] is not ("0" or "1" or "2"))
         {
             throw new ValidationErrorException();
             // todo: daha sonra exception içinde validasyonlar yapılabilir mi? içine atılan parta göre o partta hata olduğunu belirtmesi için 
-            // TODO: Exception içinde validasyonla ne demek istediğini anlamadım ancak exception'ı fırlatan yer ile ilgili bilgileri exception'ın içine almalısın. if-else logicin yine hatalı
+            // TODO: Exception içinde validasyonla ne demek istediğini anlamadım ancak exception'ı fırlatan yer ile ilgili bilgileri exception'ın içine almalısın.
         }
 
         return _taskService.Add(taskParts);
@@ -61,36 +61,31 @@ public class TaskController
     public bool UpdateTask(string[] taskParts)
     {
         //Update,task,Id 2 ,title 3 ,description 4 ,department 5 ,status 6 ,DeveloperId 7
-        //Departmant 
-        //Statusun bitmemiş olmalı
-        //DeveloperId
-        //GK: validasyonların aynı şekilde, tüm parçalar için yapabilirsin.
         Guid guidResult;
         bool isValid = Guid.TryParse(taskParts[2], out guidResult);
         if (isValid != true) // ID guid değilse hata verdirmek istedim.
         {
             throw new ValidationErrorException();
         }
-        else if (taskParts[3].Length < 3) //TODO: Else'ler hatalı yine
+        if (taskParts[3].Length < 3) //TODO: Else'ler hatalı yine
         {
             throw new ValidationErrorException();
             ;
         }
-        else if (taskParts[4].Length < 5)
+        if (taskParts[4].Length < 5)
         {
             throw new ValidationErrorException();
         }
-        else if (taskParts[5] is not ("0" or "1" or "2"))
+        if (taskParts[5] is not ("0" or "1" or "2"))
         {
             throw new ValidationErrorException();
             ;
         }
-        else if (taskParts[6] == "3" && taskParts[6] is not ("0" or "1" or "2")) // 3- completed status
+        if (taskParts[6] == "3" && taskParts[6] is not ("0" or "1" or "2")) // 3- completed status //ilk if koşulu da gereksiz gibi 2.yi yazınca
         {
-            //todo: ilk if koşulu da gereksiz gibi 2.yi yazınca
             throw new ValidationErrorException();
         }
-        else if (null == _developerService.Get(taskParts[7]))
+        if (null == _developerService.Get(taskParts[7]))
         {
             throw new DeveloperNotFoundException();
         }
@@ -106,8 +101,7 @@ public class TaskController
 
     //*********************************2. KISIM 
     public bool TaskAssign(string[] taskParts)
-        // todo: taskassign için Add de developer id yapmadığımız için developerId birtek update de var diye ona göre varsaydım. 
-        ////Update(Assign) ,task,Id 2 ,title 3 ,description 4 ,department 5 ,status 6 ,DeveloperId 7
+     //Update(Assign) ,task,Id 2 ,title 3 ,description 4 ,department 5 ,status 6 ,DeveloperId 7
     {
         var tasks = _taskService.Get(taskParts[2]);
         var developers = _developerService.Get(taskParts[7]);

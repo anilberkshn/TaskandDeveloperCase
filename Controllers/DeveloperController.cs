@@ -17,21 +17,17 @@ public class DeveloperController
 
     public Guid AddDeveloper(string[] developerParts) // Add,developer,name,surname,departmant
     {
-        // todo: 0-1 ve bir partı routerda yönlenmesi gerekli diye düşündüm. 
-
         if (developerParts[2].Length < 2)
         {
             throw new ValidationErrorException();
         }
-        else if (developerParts[3].Length < 2) 
-        {
-            //TODO: Buradaki else kelimesinin gri renkli olmasının bir sebebi var. Nedir o ? :)
-            //TODO: Genel olarak derleyicinin sana verdiği tepkileri ciddiye almalısın. Neden o else gri gibi.
+        if (developerParts[3].Length < 2) 
+        { 
             throw new ValidationErrorException();
         }
-        else if (developerParts[4] is not ("0" or "1" or "2"))
+        if (developerParts[4] is not ("0" or "1" or "2"))
         {
-            throw new Exception("Developer Departmanı 0,1,2 olmalıdır.");
+            throw new ValidationErrorException();
         }
 
         return _developerService.Add(developerParts);
@@ -39,9 +35,7 @@ public class DeveloperController
 
     public Developer GetDeveloper(string[] developerParts)
     {
-        //Service string id istiyor gelen partı bölüp gönderdim.
-        //Get,Develepor,Id program girişinde beklenen.
-        return _developerService.Get(developerParts[2]) ?? throw new DeveloperNotFoundException();
+     return _developerService.Get(developerParts[2]) ?? throw new DeveloperNotFoundException();
     }
 
     public bool UpdateDeveloper(string[] developerParts)
@@ -69,9 +63,6 @@ public class DeveloperController
 
     public bool DeleteDeveloper(string[] developerParts) // Delete,Developer,DeveloperId
     {
-        /*2.aşama için aşağıda developer silindiğinde üstündebitmemiş tasklar
-         varsa onlardan developeri silmek için bu metot ekleeme yaptım. 
-        */
         if (_developerService.Delete(developerParts)) 
         {
             UnassignDeveloperOnTask(developerParts);   
@@ -80,15 +71,10 @@ public class DeveloperController
         return _developerService.Delete(developerParts);
         //TODO: DELETE işlemi kaç kez yapılıyor? neden?
     }
-
-
-    //*********************************2. KISIM 
-    
-     public void UnassignDeveloperOnTask(string[] developerParts) 
+    public void UnassignDeveloperOnTask(string[] developerParts) 
          //delete,developer,DeveloperId
      {
          var tasks = _taskService.GetAll(); 
-         //TODO: Bu kısım doğru e güzel.
          foreach (var task in tasks)
          {
              if (developerParts[2] == Convert.ToString(task.DeveloperId)
