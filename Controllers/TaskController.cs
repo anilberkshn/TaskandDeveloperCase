@@ -45,35 +45,33 @@ public class TaskController
         }
         else if (taskParts[4] is not ("0" or "1" or "2"))
         {
-            //GK: Buralarda build-in exception'ı direkt trowlamak yerine kendin bir exception üretip (build-in exception'dan) onu throwlarsan daha iyi olur.
             throw new ValidationErrorException();
             // todo: daha sonra exception içinde validasyonlar yapılabilir mi? içine atılan parta göre o partta hata olduğunu belirtmesi için 
+            // TODO: Exception içinde validasyonla ne demek istediğini anlamadım ancak exception'ı fırlatan yer ile ilgili bilgileri exception'ın içine almalısın. if-else logicin yine hatalı
         }
 
         return _taskService.Add(taskParts);
     }
 
-    public Task GetTask(string[] taskParts) //Get,task,id
+    public Task GetTask(string[] taskParts) 
     {
-        //  GK: Bu get methodu mu delete methodu mu? bir üst satırdaki yorumda delete yazdığı için sordum. Get ise tüm taskları çekip içinde aramana gerek yok. Direkt getbyId methodunu kullanabilirisn
-        //  Get ve delete aynı girdi parametresi alır diye koymuştum get diye değiştirmemişim.
         return _taskService.Get(taskParts[2]) ?? throw new InvalidOperationException();
     }
 
     public bool UpdateTask(string[] taskParts)
+    {
         //Update,task,Id 2 ,title 3 ,description 4 ,department 5 ,status 6 ,DeveloperId 7
         //Departmant 
         //Statusun bitmemiş olmalı
         //DeveloperId
         //GK: validasyonların aynı şekilde, tüm parçalar için yapabilirsin.
-    {
         Guid guidResult;
         bool isValid = Guid.TryParse(taskParts[2], out guidResult);
         if (isValid != true) // ID guid değilse hata verdirmek istedim.
         {
             throw new ValidationErrorException();
         }
-        else if (taskParts[3].Length < 3)
+        else if (taskParts[3].Length < 3) //TODO: Else'ler hatalı yine
         {
             throw new ValidationErrorException();
             ;

@@ -23,8 +23,10 @@ public class DeveloperController
         {
             throw new ValidationErrorException();
         }
-        else if (developerParts[3].Length < 2)
+        else if (developerParts[3].Length < 2) 
         {
+            //TODO: Buradaki else kelimesinin gri renkli olmasının bir sebebi var. Nedir o ? :)
+            //TODO: Genel olarak derleyicinin sana verdiği tepkileri ciddiye almalısın. Neden o else gri gibi.
             throw new ValidationErrorException();
         }
         else if (developerParts[4] is not ("0" or "1" or "2"))
@@ -36,15 +38,15 @@ public class DeveloperController
     }
 
     public Developer GetDeveloper(string[] developerParts)
+    {
         //Service string id istiyor gelen partı bölüp gönderdim.
         //Get,Develepor,Id program girişinde beklenen.
-    {
         return _developerService.Get(developerParts[2]) ?? throw new DeveloperNotFoundException();
     }
 
     public bool UpdateDeveloper(string[] developerParts)
-        // Update 0,developer 1 ,Id 2 ,name 3 ,surname 4 ,department 5
     {
+        // Update 0,developer 1 ,Id 2 ,name 3 ,surname 4 ,department 5
         if (developerParts[2].Length < 2)
         {
             throw new ValidationErrorException();
@@ -72,19 +74,21 @@ public class DeveloperController
         */
         if (_developerService.Delete(developerParts)) 
         {
-         UnassignDeveloperTask(developerParts);   
+            UnassignDeveloperOnTask(developerParts);   
         }
+
         return _developerService.Delete(developerParts);
+        //TODO: DELETE işlemi kaç kez yapılıyor? neden?
     }
 
 
     //*********************************2. KISIM 
     
-     public void UnassignDeveloperTask(string[] developerParts) 
+     public void UnassignDeveloperOnTask(string[] developerParts) 
          //delete,developer,DeveloperId
      {
          var tasks = _taskService.GetAll(); 
-         
+         //TODO: Bu kısım doğru e güzel.
          foreach (var task in tasks)
          {
              if (developerParts[2] == Convert.ToString(task.DeveloperId)
