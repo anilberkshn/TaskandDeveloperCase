@@ -108,29 +108,26 @@ public class TaskController
 
     //*********************************2. KISIM 
     public bool TaskAssign(string[] taskParts)
-    // todo: taskassign için Add de developer id yapmadığımız için developerId birtek update de var diye ona göre varsaydım. 
-    ////Update(Assign) ,task,Id 2 ,title 3 ,description 4 ,department 5 ,status 6 ,DeveloperId 7
+        // todo: taskassign için Add de developer id yapmadığımız için developerId birtek update de var diye ona göre varsaydım. 
+        ////Update(Assign) ,task,Id 2 ,title 3 ,description 4 ,department 5 ,status 6 ,DeveloperId 7
     {
-        var tasks = _taskService.GetAll();
+        var tasks = _taskService.Get(taskParts[2]);
         var developers = _developerService.Get(taskParts[7]);
 
-        foreach (var task in tasks)
+
+        if (taskParts[7] == developers!.Id.ToString()
+            && taskParts[5] == developers.Department.ToString())
         {
-            if (   task.Id == Guid.Parse(taskParts[2])
-                && taskParts[7] == developers!.Id.ToString() 
-                && taskParts[5] == developers.Department.ToString())
-            {
-                UpdateTask(taskParts);
-            }
-            else if (taskParts[7] == developers!.Id.ToString()
-                     && taskParts[5] == developers.Department.ToString())
-            {
-                AddTask(taskParts);
-                //todo: Add,task,title,description, department, (normalde addTask metotu
-            }
-            
+            UpdateTask(taskParts);
         }
-    
+        // // Alt taraf gereksiz gibi geldi.
+        // else if (taskParts[7] == developers!.Id.ToString()  
+        //          && taskParts[5] == developers.Department.ToString())
+        // {
+        //     AddTask(taskParts);
+        //     //todo: Add,task,title,description, department, (normalde addTask metotu isterleri) 
+        // }
+
         return false;
     }
 }
