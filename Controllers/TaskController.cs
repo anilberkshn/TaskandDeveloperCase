@@ -5,19 +5,6 @@ using Task = Case2GK20221102.Entities.Task;
 
 namespace Case2GK20221102.Controllers;
 
-//assign işleminde ilgili developerın var olduğunu doğrulamak.
-//Task ile developer’ın departmanlarının aynı olduğunu doğrulamak
-
-// Task statuleri:
-// 0: -
-// 1: Created
-// 2: In-Dev
-// 3: Completed
-// Department bilgileri:
-// 0: -
-// 1: Backend
-// 2: Frontend
-
 public class TaskController
 {
     private readonly DeveloperService _developerService;
@@ -31,10 +18,6 @@ public class TaskController
 
     public Guid AddTask(string[] taskParts) //Add,task,title,description, department,
     {
-        // GK: title, description vb diğer ne alanların varsa onlar için de validasyon yazmayı unutma
-        /*Add ve task kısımları router tarafında yapılmalı gibi düşündüğüm için tittle ve
-         description kısımlarına kontrollerli ekledim. */
-
         if (taskParts[2].Length < 3)
         {
             throw new ValidationErrorException();
@@ -46,8 +29,9 @@ public class TaskController
         if (taskParts[4] is not ("0" or "1" or "2"))
         {
             throw new ValidationErrorException();
-            // todo: daha sonra exception içinde validasyonlar yapılabilir mi? içine atılan parta göre o partta hata olduğunu belirtmesi için 
-            // TODO: Exception içinde validasyonla ne demek istediğini anlamadım ancak exception'ı fırlatan yer ile ilgili bilgileri exception'ın içine almalısın.
+       // todo: daha sonra exception içinde validasyonlar yapılabilir mi? içine atılan parta göre o
+       // partta hata olduğunu belirtmesi için 
+       // TODO: exception'ı fırlatan yer ile ilgili bilgileri exception'ın içine almalısın.
         }
 
         return _taskService.Add(taskParts);
@@ -70,7 +54,6 @@ public class TaskController
         if (taskParts[3].Length < 3) //TODO: Else'ler hatalı yine
         {
             throw new ValidationErrorException();
-            ;
         }
         if (taskParts[4].Length < 5)
         {
@@ -81,7 +64,8 @@ public class TaskController
             throw new ValidationErrorException();
             ;
         }
-        if (taskParts[6] == "3" && taskParts[6] is not ("0" or "1" or "2")) // 3- completed status //ilk if koşulu da gereksiz gibi 2.yi yazınca
+        if (taskParts[6] == "3" && taskParts[6] is not ("0" or "1" or "2")) 
+          // 3- completed status //ilk if koşulu da gereksiz gibi 2.yi yazınca
         {
             throw new ValidationErrorException();
         }
@@ -99,7 +83,7 @@ public class TaskController
     }
 
 
-    //*********************************2. KISIM 
+    
     public bool TaskAssign(string[] taskParts)
      //Update(Assign) ,task,Id 2 ,title 3 ,description 4 ,department 5 ,status 6 ,DeveloperId 7
     {
