@@ -90,20 +90,12 @@ public class TaskController
         var tasks = _taskService.Get(taskParts[2]);
         var developers = _developerService.Get(taskParts[7]);
 
-
         if (taskParts[7] == developers!.Id.ToString()
             && taskParts[5] == developers.Department.ToString())
         {
             UpdateTask(taskParts);
+            return true;
         }
-        // // Alt taraf gereksiz gibi geldi.
-        // else if (taskParts[7] == developers!.Id.ToString()  
-        //          && taskParts[5] == developers.Department.ToString())
-        // {
-        //     AddTask(taskParts);
-        //     //todo: Add,task,title,description, department, (normalde addTask metotu isterleri) 
-        // }
-
         return false;
     }
 }
