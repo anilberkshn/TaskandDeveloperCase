@@ -16,22 +16,19 @@ public class TaskController
         _taskService = taskService;
     }
 
-    public Guid AddTask(string[] taskParts) //Add,task,title,description, department,
+    public Guid AddTask(string[] taskParts) //Add,task 1,title 2 ,description 3 , department 4 ,
     {
         if (taskParts[2].Length < 3)
         {
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("TaskController title input error",taskParts[2]);
         }
         if (taskParts[3].Length < 3)
         {
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("TaskController description input error",taskParts[3]);
         }
         if (taskParts[4] is not ("0" or "1" or "2"))
         {
-            throw new ValidationErrorException();
-       // todo: daha sonra exception içinde validasyonlar yapılabilir mi? içine atılan parta göre o
-       // partta hata olduğunu belirtmesi için 
-       // TODO: exception'ı fırlatan yer ile ilgili bilgileri exception'ın içine almalısın.
+            throw new ValidationErrorException("TaskController department input error",taskParts[4]);
         }
 
         return _taskService.Add(taskParts);
@@ -49,26 +46,30 @@ public class TaskController
         bool isValid = Guid.TryParse(taskParts[2], out guidResult);
         if (isValid != true) // ID guid değilse hata verdirmek istedim.
         {
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("TaskController ID input error",taskParts[2]);
         }
-        if (taskParts[3].Length < 3) //TODO: Else'ler hatalı yine
+
+        if (taskParts[3].Length < 3)
         {
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("TaskController title input error",taskParts[3]);
         }
+
         if (taskParts[4].Length < 5)
         {
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("TaskController description input error",taskParts[4]);
         }
+
         if (taskParts[5] is not ("0" or "1" or "2"))
         {
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("TaskController department input error",taskParts[5]);
             ;
         }
-        if (taskParts[6] == "3" && taskParts[6] is not ("0" or "1" or "2")) 
-          // 3- completed status //ilk if koşulu da gereksiz gibi 2.yi yazınca
+
+        if (taskParts[6] == "3" && taskParts[6] is not ("0" or "1" or "2"))
         {
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("TaskController status input error",taskParts[6]);
         }
+
         if (null == _developerService.Get(taskParts[7]))
         {
             throw new DeveloperNotFoundException();
@@ -87,11 +88,16 @@ public class TaskController
     public bool TaskAssign(string[] taskParts)
      //Update(Assign) ,task,Id 2 ,title 3 ,description 4 ,department 5 ,status 6 ,DeveloperId 7
     {
-        var tasks = _taskService.Get(taskParts[2]);
-        var developers = _developerService.Get(taskParts[7]);
-
-        if (taskParts[7] == developers!.Id.ToString()
-            && taskParts[5] == developers.Department.ToString())
+        //var task = _taskService.Get(taskParts[2]);
+        var developer = _developerService.Get(taskParts[7]);
+        
+        if (developer == null)
+        {
+            throw new DeveloperNotFoundException();
+        }
+        
+        if (taskParts[7] == developer.Id.ToString() 
+            && taskParts[5] == developer.Department.ToString())
         {
             UpdateTask(taskParts);
             return true;

@@ -19,15 +19,15 @@ public class DeveloperController
     {
         if (developerParts[2].Length < 2)
         {
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("DeveloperController name input error",developerParts[2]);
         }
         if (developerParts[3].Length < 2) 
         { 
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("DeveloperController Surname input error",developerParts[3]);
         }
         if (developerParts[4] is not ("0" or "1" or "2"))
         {
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("DeveloperController Department input error",developerParts[4]);
         }
 
         return _developerService.Add(developerParts);
@@ -43,19 +43,19 @@ public class DeveloperController
         // Update 0,developer 1 ,Id 2 ,name 3 ,surname 4 ,department 5
         if (developerParts[2].Length < 2)
         {
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("DeveloperController ID input error",developerParts[2]);
         }
         else if (developerParts[3].Length < 2)
         {
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("DeveloperController name input error",developerParts[3]);
         }
         else if (developerParts[4].Length < 2)
         {
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("DeveloperController Surname input error",developerParts[4]);
         }
         else if (developerParts[5] is not ("0" or "1" or "2"))
         {
-            throw new ValidationErrorException();
+            throw new ValidationErrorException("DeveloperController Department input error",developerParts[5]);
         }
 
         return _developerService.Update(developerParts);
@@ -63,9 +63,9 @@ public class DeveloperController
 
     public bool DeleteDeveloper(string[] developerParts) // Delete,Developer,DeveloperId
     {
-        UnassignDeveloperOnTask(developerParts);   
-     
-        return _developerService.Delete(developerParts);
+        _developerService.Delete(developerParts);
+        UnassignDeveloperOnTask(developerParts);
+        return true;
     }
     public void UnassignDeveloperOnTask(string[] developerParts) 
          //delete,developer,DeveloperId
